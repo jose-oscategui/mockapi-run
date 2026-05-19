@@ -1,0 +1,66 @@
+---
+const jsonHTml = `{
+  <span class="key">"id"</span>: <span class="string">1</span>,
+  <span class="key">"name"</span>: <span class="string">"Leanne Graham"</span>,
+  <span class="key">"username"</span>: <span class="string">"Bret"</span>,
+  <span class="key">"email"</span>: <span class="string">"Sincere@april.biz"</span>,
+  <span class="key">"address"</span>: {
+    <span class="key">"street"</span>: <span class="string">"Kulas Light"</span>,
+    <span class="key">"city"</span>: <span class="string">"Gwenborough"</span>,
+    <span class="key">"zipcode"</span>: <span class="string">"92998-3874"</span>
+  },
+  <span class="key">"company"</span>: {
+    <span class="key">"name"</span>: <span class="string">"Romaguera-Crona"</span>,
+    <span class="key">"catchPhrase"</span>: <span class="string">"Multi-layered client-server"</span>
+  }
+}`;
+---
+
+<section class='section' data-od-id='preview'>
+  <div class='container'>
+    <div class='response-grid'>
+      <div>
+        <p class='eyebrow'>Live Data</p>
+        <h2>Beautiful, structured JSON.</h2>
+        <p class='lead'>
+          Responses are designed to be predictable and rich, perfect for building robust frontend
+          prototypes without a backend.
+        </p>
+        <div class='stack' style='gap: 32px;'>
+          <div class='feature-item'>
+            <h3>
+              <svg
+                viewBox='0 0 24 24'
+                fill='none'
+                stroke='currentColor'
+                stroke-width='2'
+                stroke-linecap='round'
+                stroke-linejoin='round'><polyline points='20 6 9 17 4 12'></polyline></svg
+              > No Auth Required
+            </h3>
+            <p>All endpoints are public. No API keys, no tokens, no setup. Just fetch and build.</p>
+          </div>
+          <div class='feature-item'>
+            <h3>
+              <svg
+                viewBox='0 0 24 24'
+                fill='none'
+                stroke='currentColor'
+                stroke-width='2'
+                stroke-linecap='round'
+                stroke-linejoin='round'><polyline points='20 6 9 17 4 12'></polyline></svg
+              > CDN-First Speed
+            </h3>
+            <p>Global edge delivery ensures {'< 50ms'} response times anywhere in the world.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class='code-block' style='font-size: 12px; padding: 24px;'>
+        <div class='code-header'>SAMPLE RESPONSE: /api/users/1</div>
+
+        <pre style='margin: 0; color: var(--fg);' set:html={jsonHTml} />
+      </div>
+    </div>
+  </div>
+</section>
