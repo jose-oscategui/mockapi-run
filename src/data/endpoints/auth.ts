@@ -4,7 +4,7 @@ export const authEndpoint: Endpoint[] = [
   {
     id: 'api-auth-login',
     method: 'GET',
-    path: '/api/auth/login',
+    path: '/auth/login',
     description: 'Accepts credentials and returns a mock JWT token.',
     exampleTitle: 'SAMPLE RESPONSE',
     response: {
@@ -15,7 +15,7 @@ export const authEndpoint: Endpoint[] = [
   {
     id: 'api-auth-me',
     method: 'GET',
-    path: '/api/auth/me',
+    path: '/auth/me',
     description: 'Validate current session and return user context.',
     exampleTitle: 'SAMPLE RESPONSE',
     response: {

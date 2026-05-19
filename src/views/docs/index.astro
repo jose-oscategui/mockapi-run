@@ -14,8 +14,10 @@ import Sidebar from './sidebar.astro';
         data for your frontend development needs. Whether you're building a prototype, testing your
         application, or creating a tutorial, our endpoints are ready to use instantly.
       </p>
+    </section>
 
-      <h2 id='usage'>Usage</h2>
+    <section id='usage'>
+      <h2>Usage</h2>
       <p class='usage-description'>
         All endpoints are available over HTTPS at <code>https://mockapi.run/api/*</code>. You can
         use any standard HTTP client or the <code>fetch</code> API to interact with them.
@@ -34,15 +36,17 @@ import Sidebar from './sidebar.astro';
       </div>
     </section>
 
-    {endpoints.map((endpoint) => (
-      <section id={endpoint.id}>
-        <h2>{endpoint.title}</h2>
-        <p class='section-description'>{endpoint.description}</p>
-        {endpoint.endpoints.map((ep) => (
-          <EndpointCard {...ep} />
-        ))}
-      </section>
-    ))}
+    {
+      endpoints.map((endpoint) => (
+        <section id={endpoint.id}>
+          <h2>{endpoint.title}</h2>
+          <p class='section-description'>{endpoint.description}</p>
+          {endpoint.endpoints.map((ep) => (
+            <EndpointCard {...ep} />
+          ))}
+        </section>
+      ))
+    }
   </div>
 </div>
 
@@ -59,7 +63,6 @@ import Sidebar from './sidebar.astro';
     }
   }
 
-  /* Content */
   .content {
     padding: 64px 48px;
     max-width: 800px;
@@ -70,9 +73,6 @@ import Sidebar from './sidebar.astro';
     }
   }
 
-  section {
-    margin-bottom: 96px;
-  }
   h1 {
     font-size: var(--fs-h2);
     margin-bottom: 16px;

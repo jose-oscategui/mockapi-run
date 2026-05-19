@@ -64,6 +64,9 @@ import Footer from './footer.astro';
     box-sizing: border-box;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     background: var(--bg);
     color: var(--fg);
@@ -100,6 +103,7 @@ import Footer from './footer.astro';
     display: flex;
     align-items: center;
     gap: 8px;
+    cursor: pointer;
   }
   .logo svg {
     width: 20px;

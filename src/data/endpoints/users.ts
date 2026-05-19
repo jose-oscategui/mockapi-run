@@ -4,7 +4,7 @@ export const usersEndpoint: Endpoint[] = [
   {
     id: 'api-users',
     method: 'GET',
-    path: '/api/users',
+    path: '/users',
     description: 'Returns a list of 10 users with basic profile data.',
     exampleTitle: 'SAMPLE RESPONSE',
     response: [
@@ -18,9 +18,9 @@ export const usersEndpoint: Endpoint[] = [
   {
     id: 'api-users-id',
     method: 'GET',
-    path: '/api/users/:id',
+    path: '/users/:id',
     description: 'Returns a single user matching the provided ID.',
-    exampleTitle: 'EXAMPLE: /api/users/1',
+    exampleTitle: 'EXAMPLE: /users/1',
     response: {
       id: 1,
       name: 'Leanne Graham',
@@ -30,7 +30,7 @@ export const usersEndpoint: Endpoint[] = [
   {
     id: 'api-users-roles',
     method: 'GET',
-    path: '/api/users/roles',
+    path: '/users/roles',
     description: 'List all available user roles and their associated permissions.',
     exampleTitle: 'SAMPLE RESPONSE',
     response: [
@@ -41,7 +41,7 @@ export const usersEndpoint: Endpoint[] = [
   {
     id: 'api-users-query-params',
     method: 'GET',
-    path: '/api/users?limit=5&role=admin',
+    path: '/users?limit=5&role=admin',
     description: 'Use query parameters for pagination, limiting results, or filtering by attributes.',
     exampleTitle: 'SUPPORTED PARAMETERS',
     response: [

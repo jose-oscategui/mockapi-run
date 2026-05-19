@@ -1,3 +1,8 @@
+---
+import { endpoints } from '../../data/endpoints';
+
+
+---
 <section class='section' id='categories' data-od-id='categories'>
   <div class='container'>
     <p class='eyebrow'>API Resources</p>
@@ -5,34 +10,12 @@
     <p class='lead'>Select a category to view endpoints and sample responses.</p>
 
     <div class='grid-categories'>
-      <div class='category-card'>
-        <h3>Users</h3>
-        <p>Profiles, addresses, and authentication data mocks.</p>
-      </div>
-      <div class='category-card'>
-        <h3>Ecommerce</h3>
-        <p>Products, categories, and shopping cart items.</p>
-      </div>
-      <div class='category-card'>
-        <h3>Dashboard</h3>
-        <p>Stats, charts, and administrative overview data.</p>
-      </div>
-      <div class='category-card'>
-        <h3>Blog</h3>
-        <p>Posts, comments, and author metadata.</p>
-      </div>
-      <div class='category-card'>
-        <h3>Finance</h3>
-        <p>Transactions, account balances, and market trends.</p>
-      </div>
-      <div class='category-card'>
-        <h3>Education</h3>
-        <p>Courses, lessons, and student progress metrics.</p>
-      </div>
-      <div class='category-card'>
-        <h3>Auth</h3>
-        <p>Tokens, permissions, and session validation responses.</p>
-      </div>
+      {endpoints.map((endpoint) => (
+        <a href={`/docs#${endpoint.id}`} class='category-card'>
+          <h3>{endpoint.title}</h3>
+          <p>{endpoint.description}</p>
+        </a>
+      ))}
     </div>
   </div>
 </section>
