@@ -1,0 +1,70 @@
+<section class='section' id='categories' data-od-id='categories'>
+  <div class='container'>
+    <p class='eyebrow'>API Resources</p>
+    <h2>Available Categories</h2>
+    <p class='lead'>Select a category to view endpoints and sample responses.</p>
+
+    <div class='grid-categories'>
+      <div class='category-card'>
+        <h3>Users</h3>
+        <p>Profiles, addresses, and authentication data mocks.</p>
+      </div>
+      <div class='category-card'>
+        <h3>Ecommerce</h3>
+        <p>Products, categories, and shopping cart items.</p>
+      </div>
+      <div class='category-card'>
+        <h3>Dashboard</h3>
+        <p>Stats, charts, and administrative overview data.</p>
+      </div>
+      <div class='category-card'>
+        <h3>Blog</h3>
+        <p>Posts, comments, and author metadata.</p>
+      </div>
+      <div class='category-card'>
+        <h3>Finance</h3>
+        <p>Transactions, account balances, and market trends.</p>
+      </div>
+      <div class='category-card'>
+        <h3>Education</h3>
+        <p>Courses, lessons, and student progress metrics.</p>
+      </div>
+      <div class='category-card'>
+        <h3>Auth</h3>
+        <p>Tokens, permissions, and session validation responses.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .grid-categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .category-card {
+    background: var(--bg);
+    padding: 32px 24px;
+    transition: 0.2s;
+    cursor: pointer;
+    text-align: left;
+  }
+  .category-card:hover {
+    background: var(--surface);
+  }
+  .category-card h3 {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+  .category-card p {
+    font-size: 14px;
+    color: var(--muted);
+    margin: 0;
+    line-height: 1.5;
+  }
+</style>

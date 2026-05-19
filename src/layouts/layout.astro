@@ -1,0 +1,229 @@
+---
+import Header from './header.astro';
+import Footer from './footer.astro';
+---
+
+<!doctype html>
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta name='viewport' content='width=device-width' />
+    <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+    <link rel='icon' href='/favicon.ico' />
+    <meta name='generator' content={Astro.generator} />
+    <title>Astro Basics</title>
+  </head>
+  <body>
+    <Header />
+    <slot />
+    <Footer />
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --bg: #050505;
+    --surface: #0a0a0a;
+    --fg: #ededed;
+    --muted: #888888;
+    --border: #1f1f1f;
+    --accent: #3b82f6;
+
+    --accent-soft: color-mix(in oklch, var(--accent) 14%, transparent);
+    --fg-soft: color-mix(in oklch, var(--fg) 6%, transparent);
+
+    --font-display: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+    --font-body: -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+
+    --fs-h1: clamp(48px, 7vw, 84px);
+    --fs-h2: clamp(32px, 4vw, 44px);
+    --fs-h3: 20px;
+    --fs-lead: 18px;
+    --fs-body: 16px;
+    --fs-meta: 13px;
+
+    --gap-xs: 8px;
+    --gap-sm: 12px;
+    --gap-md: 20px;
+    --gap-lg: 32px;
+    --gap-xl: 56px;
+    --gap-2xl: 96px;
+    --container: 1120px;
+    --gutter: 32px;
+
+    --radius: 8px;
+    --radius-lg: 12px;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-body);
+    font-size: var(--fs-body);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+    transition: 0.15s;
+  }
+
+  .container {
+    max-width: var(--container);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+  .section {
+    padding-block: clamp(64px, 10vw, 120px);
+  }
+  .stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-md);
+  }
+
+  .logo {
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .logo svg {
+    width: 20px;
+    height: 20px;
+    color: var(--accent);
+  }
+
+  /* Type */
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: -0.02em;
+  }
+  h1 {
+    font-size: var(--fs-h1);
+    line-height: 1;
+    margin-bottom: 24px;
+  }
+  h2 {
+    font-size: var(--fs-h2);
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+  .lead {
+    font-size: var(--fs-lead);
+    color: var(--muted);
+    max-width: 52ch;
+    margin-bottom: 40px;
+  }
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+  .mono {
+    font-family: var(--font-mono);
+  }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 20px;
+    border-radius: var(--radius);
+    font-size: 14px;
+    font-weight: 500;
+    transition: 0.1s;
+  }
+  .btn-primary {
+    background: var(--fg);
+    color: var(--bg);
+  }
+  .btn-primary:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+  .btn-secondary {
+    background: var(--surface);
+    color: var(--fg);
+    border: 1px solid var(--border);
+  }
+  .btn-secondary:hover {
+    border-color: var(--muted);
+    background: var(--border);
+  }
+
+  /* Code & JSON Blocks */
+  .code-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 1.6;
+    position: relative;
+    overflow-x: auto;
+  }
+  .code-header {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 8px;
+  }
+  .method {
+    color: var(--accent);
+    font-weight: 600;
+    margin-right: 8px;
+  }
+  .string {
+    color: color-mix(in oklab, var(--accent), var(--fg) 30%);
+  }
+  .key {
+    color: var(--muted);
+  }
+
+  /* Animation */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .animate {
+    animation: fadeIn 0.5s ease forwards;
+  }
+  .delay-1 {
+    animation-delay: 0.15s;
+    opacity: 0;
+  }
+  .delay-2 {
+    animation-delay: 0.3s;
+    opacity: 0;
+  }
+</style>
