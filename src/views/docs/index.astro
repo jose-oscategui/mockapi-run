@@ -1,0 +1,97 @@
+---
+import EndpointCard from '../../components/endpoint-card.astro';
+import { endpoints } from '../../data/endpoints';
+import Sidebar from './sidebar.astro';
+---
+
+<div class='container docs-layout'>
+  <Sidebar />
+  <div class='content'>
+    <section id='intro'>
+      <h1>Documentation</h1>
+      <p>
+        Welcome to the mockapi.run documentation. Our API provides high-quality, predictable mock
+        data for your frontend development needs. Whether you're building a prototype, testing your
+        application, or creating a tutorial, our endpoints are ready to use instantly.
+      </p>
+
+      <h2 id='usage'>Usage</h2>
+      <p class='usage-description'>
+        All endpoints are available over HTTPS at <code>https://mockapi.run/api/*</code>. You can
+        use any standard HTTP client or the <code>fetch</code> API to interact with them.
+      </p>
+      <div class='code-block'>
+        <div class='code-header'>JAVASCRIPT FETCH</div>
+        <span style='color: #ff7b72;'>fetch</span>(<span class='string'
+          >"https://mockapi.run/api/*"</span
+        >)<br />
+        &nbsp;&nbsp;.<span style='color: #ff7b72;'>then</span>(res =&gt; res.<span
+          style='color: #ff7b72;'>json</span
+        >())<br />
+        &nbsp;&nbsp;.<span style='color: #ff7b72;'>then</span>(data =&gt; console.<span
+          style='color: #ff7b72;'>log</span
+        >(data))
+      </div>
+    </section>
+
+    {endpoints.map((endpoint) => (
+      <section id={endpoint.id}>
+        <h2>{endpoint.title}</h2>
+        <p class='section-description'>{endpoint.description}</p>
+        {endpoint.endpoints.map((ep) => (
+          <EndpointCard {...ep} />
+        ))}
+      </section>
+    ))}
+  </div>
+</div>
+
+<style>
+  .docs-layout {
+    display: grid;
+    grid-template-columns: var(--sidebar-width) 1fr;
+    min-height: calc(100vh - var(--header-height));
+  }
+
+  @media (max-width: 920px) {
+    .docs-layout {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Content */
+  .content {
+    padding: 64px 48px;
+    max-width: 800px;
+  }
+  @media (max-width: 640px) {
+    .content {
+      padding: 40px 24px;
+    }
+  }
+
+  section {
+    margin-bottom: 96px;
+  }
+  h1 {
+    font-size: var(--fs-h2);
+    margin-bottom: 16px;
+    font-family: var(--font-display);
+  }
+  h2 {
+    font-size: var(--fs-h3);
+    margin: 48px 0 16px;
+    font-family: var(--font-display);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 12px;
+  }
+  p {
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .section-description,
+  .usage-description {
+    margin: 1em 0;
+  }
+</style>

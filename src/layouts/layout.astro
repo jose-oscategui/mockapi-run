@@ -15,9 +15,7 @@ import Footer from './footer.astro';
   </head>
   <body>
     <Header />
-    <main>
-      <slot />
-    </main>
+    <slot />
     <Footer />
   </body>
 </html>
@@ -51,11 +49,13 @@ import Footer from './footer.astro';
     --gap-lg: 32px;
     --gap-xl: 56px;
     --gap-2xl: 96px;
-    --container: 1120px;
+    --container: 1200px;
     --gutter: 32px;
 
     --radius: 8px;
     --radius-lg: 12px;
+    --sidebar-width: 260px;
+    --header-height: 64px;
   }
 
   * {

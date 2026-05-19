@@ -1,0 +1,169 @@
+---
+import { sidebar } from '../../data/sidebar';
+---
+
+<aside class='sidebar'>
+  <div class='sidebar-group'>
+    <div class='sidebar-title'>Getting Started</div>
+    <nav class='sidebar-nav'>
+      <a href='#intro' class='sidebar-link active'>Introduction</a>
+      <a href='#usage' class='sidebar-link'>Usage Guide</a>
+    </nav>
+  </div>
+  <div class='sidebar-group'>
+    <div class='sidebar-title'>Resources</div>
+    <nav class='sidebar-nav'>
+      {
+        sidebar.map((item) => (
+          <div class='accordion-item'>
+            <button class='accordion-trigger'>
+              {item.title}
+              <svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'>
+                <path d='M9 5l7 7-7 7' />
+              </svg>
+            </button>
+            <div class='accordion-content'>
+              {item.endpoints &&
+                item.endpoints.map((endpoint) => (
+                  <a
+                    href={`${endpoint.id}`}
+                    class={`sidebar-link ${endpoint.id === 'users' ? 'active' : ''}`}
+                  >
+                    {endpoint.title}
+                  </a>
+                ))}
+            </div>
+          </div>
+        ))
+      }
+    </nav>
+  </div>
+</aside>
+
+<script>
+  document.querySelectorAll('.accordion-trigger').forEach((trigger) => {
+    trigger.addEventListener('click', () => {
+      const item = trigger.parentElement;
+      item?.classList.toggle('open');
+    });
+  });
+
+  // Simple scroll spy for sidebar links
+  window.addEventListener('scroll', () => {
+    const sections = document.querySelectorAll('section, .endpoint-card[id]');
+    const sidebarLinks = document.querySelectorAll('.sidebar-link');
+
+    let current: string | null = null;
+    sections.forEach((section) => {
+      const sectionTop = (section as HTMLElement).offsetTop;
+      if (window.pageYOffset >= sectionTop - 100) {
+        current = section.getAttribute('id');
+      }
+    });
+
+    sidebarLinks.forEach((link) => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === `#${current}`) {
+        link.classList.add('active');
+
+        // Ensure parent accordion is open
+        const accordionItem = link.closest('.accordion-item');
+        if (accordionItem) {
+          accordionItem.classList.add('open');
+        }
+      }
+    });
+  });
+</script>
+
+<style>
+  .sidebar {
+    position: sticky;
+    top: var(--header-height);
+    height: calc(100vh - var(--header-height));
+    padding: 40px 24px;
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+  }
+  .sidebar-group {
+    margin-bottom: 32px;
+  }
+  .sidebar-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+  .sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .sidebar-link {
+    font-size: 14px;
+    color: var(--muted);
+    padding: 6px 12px;
+    display: block;
+    border-radius: 4px;
+    transition: 0.1s;
+  }
+  .sidebar-link:hover {
+    color: var(--fg);
+    background: var(--surface);
+  }
+  .sidebar-link.active {
+    color: var(--accent);
+    font-weight: 600;
+    background: var(--accent-soft);
+  }
+
+  /* Accordion Styles */
+  .accordion-item {
+    margin-bottom: 4px;
+  }
+  .accordion-trigger {
+    width: 100%;
+    text-align: left;
+    font-size: 14px;
+    color: var(--fg);
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 4px;
+    font-weight: 500;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+  .accordion-trigger:hover {
+    background: var(--surface);
+  }
+  .accordion-trigger svg {
+    width: 14px;
+    height: 14px;
+    transition: transform 0.2s;
+    color: var(--muted);
+  }
+  .accordion-item.open .accordion-trigger svg {
+    transform: rotate(90deg);
+  }
+  .accordion-content {
+    display: none;
+    padding-left: 12px;
+    margin-top: 4px;
+    border-left: 1px solid var(--border);
+    margin-left: 18px;
+  }
+  .accordion-item.open .accordion-content {
+    display: block;
+  }
+  .accordion-content .sidebar-link {
+    font-size: 13px;
+    padding: 4px 12px;
+  }
+</style>

@@ -1,0 +1,58 @@
+---
+import type { Endpoint } from '../types';
+
+const { method, path, description, exampleTitle, response, id } = Astro.props as Endpoint;
+---
+
+<div class='endpoint-card' id={id}>
+  <div class='endpoint-header'>
+    <span class='method'>{method}</span>
+    <span class='path'>{path}</span>
+  </div>
+  <div class='endpoint-body'>
+    <div class='endpoint-desc'>{description}</div>
+    <div class='code-block'>
+      <div class='code-header'>{exampleTitle}</div>
+      <pre style='margin: 0;' set:html={JSON.stringify(response, null, 2)} />
+    </div>
+  </div>
+</div>
+
+<style>
+  .endpoint-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 32px;
+    overflow: hidden;
+  }
+  .endpoint-header {
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid var(--border);
+    font-family: var(--font-mono);
+    font-size: 14px;
+  }
+  .method {
+    background: var(--accent-soft);
+    color: var(--accent);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 11px;
+  }
+  .path {
+    font-weight: 500;
+  }
+
+  .endpoint-body {
+    padding: 20px;
+  }
+  .endpoint-desc {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+</style>
