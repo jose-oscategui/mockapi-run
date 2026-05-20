@@ -74,4 +74,18 @@ export const usersEndpoint: Endpoint[] = [
       },
     ],
   },
+  {
+    id: 'api-users-todos',
+    method: 'GET',
+    path: '/users/1/todos',
+    description: 'Returns todos assigned to a specific user.',
+    exampleTitle: 'SAMPLE RESPONSE',
+    response: [
+      {
+        id: 1,
+        title: 'Prepare API mocks 1',
+        completed: false,
+      },
+    ],
+  },
 ];

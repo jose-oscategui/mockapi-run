@@ -34,8 +34,14 @@ const assignedUserIds = createAssignedIds(
   totalComments,
 );
 
+const assignedTodoIds = createAssignedIds(
+  Array.from({ length: 100 }, (_, index) => index + 1),
+  totalComments,
+);
+
 function createComment(id: number): Comment {
   const postId = assignedPostIds[id - 1];
+  const todoId = assignedTodoIds[id - 1];
   const userId = assignedUserIds[id - 1];
   const post = posts.find((item) => item.id === postId)!;
   const user = users.find((item) => item.id === userId)!;
@@ -45,6 +51,7 @@ function createComment(id: number): Comment {
   return {
     id,
     postId: post.id,
+    todoId,
     userId: user.id,
     body: commentFaker.lorem.sentences({ min: 1, max: 3 }),
     status: commentFaker.helpers.arrayElement(commentStatuses),

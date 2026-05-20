@@ -1,6 +1,7 @@
 export interface Comment {
   id: number
   postId: number
+  todoId: number | null
   userId: number
   body: string
   status: string
@@ -13,25 +14,25 @@ export interface Comment {
   updatedAt: string
 }
 
-export interface Author {
+interface Author {
   id: number
   name: string
   username: string
   avatar: string
 }
 
-export interface Post {
+interface Post {
   id: number
   title: string
   slug: string
 }
 
-export interface Reactions {
+interface Reactions {
   like: number
   love: number
 }
 
-export interface Metadata {
+interface Metadata {
   edited: boolean
   pinned: boolean
   reported: boolean

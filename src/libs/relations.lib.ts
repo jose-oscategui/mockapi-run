@@ -1,5 +1,6 @@
 import { comments } from '@/mocks/comments.mock';
 import { posts } from '@/mocks/posts.mock';
+import { todos } from '@/mocks/todos.mock';
 import { users } from '@/mocks/users.mock';
 
 export const relations = {
@@ -10,6 +11,10 @@ export const relations = {
     },
     comments: {
       collection: comments,
+      foreignKey: 'userId',
+    },
+    todos: {
+      collection: todos,
       foreignKey: 'userId',
     },
   },
@@ -40,6 +45,19 @@ export const relations = {
       sourceKey: 'postId',
       targetKey: 'id',
       single: true,
+    },
+  },
+  todos: {
+    user: {
+      collection: users,
+      sourceCollection: todos,
+      sourceKey: 'userId',
+      targetKey: 'id',
+      single: true,
+    },
+    comments: {
+      collection: comments,
+      foreignKey: 'todoId',
     },
   },
 } as const;

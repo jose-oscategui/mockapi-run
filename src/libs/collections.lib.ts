@@ -1,12 +1,13 @@
 import { comments } from '@/mocks/comments.mock';
 import { posts } from '@/mocks/posts.mock';
+import { todos } from '@/mocks/todos.mock';
 import { users } from '@/mocks/users.mock';
 
 export const collections = {
   users,
   posts,
   comments,
-  // todos,
+  todos,
   // albums,
 } as const;
 
