@@ -1,10 +1,6 @@
-import { authEndpoint } from './auth';
-import { blogEndpoint } from './blog';
-import { eCommerceEndpoint } from './e-commerce';
-import { educationEndpoint } from './education';
-import { financeEndpoint } from './finance';
-import { postsEndpoint } from './posts';
-import { usersEndpoint } from './users';
+import { postsEndpoint } from '@/data/endpoints/posts.endpoint';
+import { usersEndpoint } from '@/data/endpoints/users.endpoint';
+import { commentsEndpoint } from './comments.endpoint';
 
 export const endpoints = [
   {
@@ -19,34 +15,10 @@ export const endpoints = [
     description: 'Blog posts, articles, authors, tags and publishing states.',
     endpoints: postsEndpoint,
   },
-  // {
-  //   id: 'e-commerce',
-  //   title: 'E-commerce',
-  //   description: 'Endpoints related to products, orders, and customers.',
-  //   endpoints: eCommerceEndpoint,
-  // },
-  // {
-  //   id: 'blog',
-  //   title: 'Blog',
-  //   description: 'Resource for posts, comments, and editorial content.',
-  //   endpoints: blogEndpoint,
-  // },
-  // {
-  //   id: 'finance',
-  //   title: 'Finance',
-  //   description: 'Transactional data, market indices, and account balance simulations.',
-  //   endpoints: financeEndpoint,
-  // },
-  // {
-  //   id: 'education',
-  //   title: 'Education',
-  //   description: 'Curriculum data, including courses, modules, and learning progress.',
-  //   endpoints: educationEndpoint,
-  // },
-  // {
-  //   id: 'auth',
-  //   title: 'Auth',
-  //   description: 'Responses for authentication flows, session handling, and profile validation.',
-  //   endpoints: authEndpoint,
-  // },
+  {
+    id: 'comments',
+    title: 'Comments',
+    description: 'Comments related to posts, users or products.',
+    endpoints: commentsEndpoint,
+  }
 ];

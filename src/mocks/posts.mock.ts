@@ -1,6 +1,6 @@
-import type { Post } from '../types/post.type';
+import type { Post } from '@/types/post.type';
 import { Faker, base, en } from '@faker-js/faker';
-import { users } from './users.mock';
+import { users } from '@/mocks/users.mock';
 
 const postFaker = new Faker({
   locale: [en, base],
@@ -96,7 +96,7 @@ function createPost(id: number, author = postFaker.helpers.arrayElement(users)):
 const guaranteedPosts = users.map((author, index) => createPost(index + 1, author));
 
 const remainingPosts: Post[] = Array.from(
-  { length: 50 - guaranteedPosts.length },
+  { length: 100 - guaranteedPosts.length },
   (_, index) => createPost(guaranteedPosts.length + index + 1),
 );
 

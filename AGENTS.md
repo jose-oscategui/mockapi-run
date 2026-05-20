@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Working guide for this project. This is an open-source project that will expose hardcoded APIs of many kinds for any developer to consume. The public root for the API surface is `https://mockapi.run/api/*`. The endpoints are not implemented yet, but the project should be organized so they can scale cleanly as they are added.
+Working guide for this project. This is an open-source project that exposes hardcoded APIs of many kinds for any developer to consume. The public root for the API surface is `https://mockapi.run/api/*`. The project already has runtime API endpoints for current collections and should stay organized so more categories can scale cleanly as they are added.
 
 ## General principle
 
@@ -24,6 +24,7 @@ Each folder in `src/` has a single responsibility. Avoid mixing data, presentati
 | `src/components` | Reusable components across sections | Must not know about routes |
 | `src/data` | Supporting data for views and navigation | Includes `sidebar.ts` |
 | `src/data/endpoints` | Preview data for documented endpoints | Shows public URLs and sample endpoint structure before implementation |
+| `src/libs` | API support helpers and route utilities | Reusable helpers for guards, field selection, relations, collections, and response shaping |
 | `src/mocks` | Mock endpoint source files | Keep separated by domain or category and export through `pages` |
 | `src/types` | General project types | Reusable across data, mocks, views, and components |
 
@@ -34,13 +35,18 @@ Each folder in `src/` has a single responsibility. Avoid mixing data, presentati
 - This is the routing layer.
 - Each file represents a public route.
 - Site pages must stay lightweight: import a view and render it.
-- API route files should also stay thin: import endpoint behavior/data from `src/mocks` and expose it.
+- API route files should also stay thin: compose behavior from `src/mocks` and `src/libs`, then expose it.
 - It should not contain business logic or large UI structures.
 
 **Expected responsibility:**
 - `index.astro` imports the main home view.
 - `docs.astro` imports the main documentation view.
-- Future API route files under `src/pages/api/*` should expose the public API surface by delegating to `src/mocks`.
+- API route files under `src/pages/api/*` expose the public API surface by delegating to `src/mocks` and helper utilities in `src/libs`.
+
+**API route conventions:**
+- Use `[category]` as the single canonical dynamic segment for collection routes.
+- Do not create equivalent dynamic route names like `[collections]` for the same API surface; Astro SSR route collisions are easy to introduce and should be avoided.
+- Server API routes should not export `getStaticPaths()` unless they are intentionally prerendered.
 
 ### `src/views`
 
@@ -79,6 +85,14 @@ Each folder in `src/` has a single responsibility. Avoid mixing data, presentati
 - It exists before the real mock handlers are implemented in `src/mocks`.
 - Keep it focused on documentation data and examples, not route behavior.
 - It is the source for docs previews, not the source of truth for runtime handlers.
+- If a route or relation is removed from runtime support, update the preview data too.
+
+### `src/libs`
+
+- This is the route support layer for the runtime API surface.
+- Keep reusable request/response helpers here instead of duplicating logic inside route files.
+- Good examples: category guards, collection registries, relation maps, field pickers, and response helpers.
+- `src/libs` can consume `src/mocks` and `src/types`, but should not import from `src/views` or `src/pages`.
 
 ### `src/mocks`
 
@@ -106,11 +120,12 @@ And also:
 
 - `layouts` can be consumed by `views` and `pages`.
 - `mocks` can consume `types`.
+- `libs` can consume `mocks` and `types`.
 - `components` can consume `types` and transformed data.
 - `pages` should not be imported from any other folder.
 - `data` should not import from `views` or `pages`.
 - `data/endpoints` can feed the docs experience and preview cards.
-- `pages` can import from `views` for site routes and from `mocks` for API routes.
+- `pages` can import from `views` for site routes and from `mocks`/`libs` for API routes.
 
 ## Best practices
 
@@ -120,6 +135,7 @@ And also:
 - When something defines global structure, move it to `layouts`.
 - When something is renderable content or configuration, move it to `data`.
 - When something documents endpoint URLs or sample payload structure, move it to `data/endpoints`.
+- When something supports API route behavior without being the mock dataset itself, move it to `libs`.
 - When something defines mock API payloads or behavior, move it to `mocks`.
 - When something models data shape, move it to `types`.
 - Avoid large logic blocks inside `pages`.
@@ -128,6 +144,7 @@ And also:
 
 - `src/data/endpoints` documents what an endpoint will look like.
 - `src/mocks` implements the hardcoded payloads or handler behavior behind that endpoint.
+- `src/libs` provides route-safe access, filtering, relation lookup, and response shaping around those mocks.
 - If a documented endpoint evolves, keep preview data and mock implementation aligned.
 - Do not turn documentation preview files into runtime route logic.
 
@@ -138,7 +155,7 @@ This project has local skills that should be respected when working on UI, conte
 ### `astro`
 
 - Treat the project as a standard Astro app: `src/pages` defines routes and the rest supports that structure.
-- When there are relevant integration or configuration changes, validate with `npx astro check`.
+- When there are relevant integration or configuration changes, validate with `pnpm astro check`.
 - If plugins/integrations are added or changed, re-run sync and project checks.
 - If there is doubt about framework API or syntax, use the official Astro documentation as the source of truth.
 
@@ -179,9 +196,10 @@ This project has local skills that should be respected when working on UI, conte
 | Context | Leading skill | Practical rule |
 |---|---|---|
 | Creating or editing Astro routes/pages | `astro` | site pages expose routes through `views`; API routes stay thin and delegate to `mocks` |
+| Building API route helpers | `astro` + `typescript-advanced-types` | shared filtering/guard/response logic belongs in `src/libs`, not duplicated across routes |
 | Building reusable UI | `frontend-design` + `accessibility` | intentional design + focus, keyboard support, and accessible names |
 | Endpoint documentation and navigation | `seo` + `accessibility` | correct headings, clear links, usable anchors |
-| Mock API implementation | `astro` + `typescript-advanced-types` | keep route files thin and move endpoint logic/data into `src/mocks` |
+| Mock API implementation | `astro` + `typescript-advanced-types` | keep route files thin, keep datasets in `src/mocks`, and expose reusable runtime behavior via `src/libs` |
 | Shared data modeling | `typescript-advanced-types` | common types in `src/types`, no duplication |
 | Sidebar and endpoint preview data | `seo` + `typescript-advanced-types` | consistent content, clear naming, typed structures in `src/data/endpoints` |
 
@@ -193,8 +211,23 @@ This project has local skills that should be respected when working on UI, conte
 - Is this reused across different sections? → `src/components`
 - Is this static or semi-static content/navigation/list data? → `src/data`
 - Does this document endpoint URLs or sample response structure? → `src/data/endpoints`
+- Does this support API route behavior, filtering, guards, or response shaping? → `src/libs`
 - Does this define mock API payloads or endpoint behavior? → `src/mocks`
 - Is this a reusable type? → `src/types`
+
+## Validation workflow
+
+- When changing Astro config, adapters, routes, mocks, or route helpers, run:
+  - `pnpm astro check`
+  - `pnpm build`
+- Treat `astro check` as the fastest signal for route/type/config issues.
+- Treat `build` as the deployment-level verification, especially now that the project uses server output.
+
+## Deployment note
+
+- The project currently targets Vercel through `@astrojs/vercel`.
+- Astro runs with `output: 'server'`.
+- Keep API route design compatible with SSR behavior and avoid duplicate dynamic route shapes.
 
 ## Maintenance goal
 

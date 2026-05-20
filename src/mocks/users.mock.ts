@@ -1,4 +1,4 @@
-import type { User } from '../types/user.type';
+import type { User } from '@/types/user.type';
 import { Faker, base, en } from '@faker-js/faker';
 
 const userFaker = new Faker({
@@ -67,7 +67,7 @@ function createUser(id: number): User {
     },
 
     stats: {
-      posts: userFaker.number.int({ min: 0, max: 120 }),
+      posts: userFaker.number.int({ min: 1, max: 120 }),
       comments: userFaker.number.int({ min: 0, max: 600 }),
       todosCompleted: userFaker.number.int({ min: 0, max: 200 }),
       followers: userFaker.number.int({ min: 0, max: 15000 }),
@@ -80,4 +80,4 @@ function createUser(id: number): User {
   };
 }
 
-export const users: User[] = Array.from({ length: 20 }, (_, index) => createUser(index + 1));
+export const users: User[] = Array.from({ length: 50 }, (_, index) => createUser(index + 1));

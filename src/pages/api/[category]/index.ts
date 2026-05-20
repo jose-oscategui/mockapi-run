@@ -1,10 +1,24 @@
 import type { APIRoute } from 'astro';
-import { jsonResponse } from '../../../libs/json-response.lib';
-import { getNestedValue, pickFields } from '../../../libs/pick-fields.lib';
-import { isCategory } from '../../../libs/guards.lib';
-import { collections } from '../../../libs/collections.lib';
+import { collections } from '@/libs/collections.lib';
+import { isCategory } from '@/libs/guards.lib';
+import { jsonResponse } from '@/libs/json-response.lib';
+import { getNestedValue, pickFields } from '@/libs/pick-fields.lib';
 
 export const prerender = false;
+
+const normalizeValue = (value: unknown) => String(value).trim().toLowerCase();
+
+const matchesQueryValue = (fieldValue: unknown, queryValue: string): boolean => {
+  if (fieldValue == null) return false;
+
+  const normalizedQuery = normalizeValue(queryValue);
+
+  if (Array.isArray(fieldValue)) {
+    return fieldValue.some((value) => normalizeValue(value) === normalizedQuery);
+  }
+
+  return normalizeValue(fieldValue) === normalizedQuery;
+};
 
 export const GET = (({ url, params }) => {
   const searchParams = url.searchParams;
@@ -25,9 +39,7 @@ export const GET = (({ url, params }) => {
     result = result.filter((item) => {
       const fieldValue = getNestedValue(item, key);
 
-      if (fieldValue == null) return false;
-
-      return String(fieldValue).toLowerCase().includes(value.toLowerCase());
+      return matchesQueryValue(fieldValue, value);
     });
   }
 

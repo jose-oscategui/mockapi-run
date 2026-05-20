@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
-import { jsonResponse } from '../../../libs/json-response.lib';
-import { isCategory } from '../../../libs/guards.lib';
-import { collections } from '../../../libs/collections.lib';
+import { collections } from '@/libs/collections.lib';
+import { isCategory } from '@/libs/guards.lib';
+import { jsonResponse } from '@/libs/json-response.lib';
 
 export const prerender = false;
 
@@ -21,7 +21,3 @@ export const GET = (({ params }) => {
 
   return jsonResponse(item);
 }) satisfies APIRoute;
-
-export function getStaticPaths() {
-  return [];
-}

@@ -1,9 +1,26 @@
 import type { APIRoute } from 'astro';
-import { jsonResponse } from '../../../../libs/json-response.lib';
-import { isCategory } from '../../../../libs/guards.lib';
-import { relations } from '../../../../libs/relations.lib';
+import { isCategory } from '@/libs/guards.lib';
+import { jsonResponse } from '@/libs/json-response.lib';
+import { relations } from '@/libs/relations.lib';
 
 export const prerender = false;
+
+function hasDirectLookup(config: unknown): config is {
+  collection: Record<string, unknown>[];
+  sourceCollection: Record<string, unknown>[];
+  sourceKey: string;
+  targetKey: string;
+  single: true;
+} {
+  return (
+    typeof config === 'object' &&
+    config !== null &&
+    'sourceCollection' in config &&
+    'sourceKey' in config &&
+    'targetKey' in config &&
+    'single' in config
+  );
+}
 
 export const GET = (({ params }) => {
   const category = params.category;
@@ -21,26 +38,26 @@ export const GET = (({ params }) => {
   }
 
   const config = categoryRelations[relation as keyof typeof categoryRelations];
+
+  if (hasDirectLookup(config)) {
+    const sourceItem = config.sourceCollection.find((item) => item.id === id);
+
+    if (!sourceItem) {
+      return Response.json({ error: 'Resource not found' }, { status: 404 });
+    }
+
+    const relatedItem = config.collection.find(
+      (item) => item[config.targetKey] === sourceItem[config.sourceKey],
+    );
+
+    if (!relatedItem) {
+      return Response.json({ error: 'Relation not found' }, { status: 404 });
+    }
+
+    return jsonResponse(relatedItem);
+  }
+
   const data = config.collection.filter((item) => item[config.foreignKey] === id);
 
   return jsonResponse(data);
-  // const id = Number(params.id);
-  // const relation = params.relation;
-  // const user = users.find((user) => user.id === id);
-
-  // if (!user) {
-  //   return Response.json({ error: 'User not found' }, { status: 404 });
-  // }
-
-  // if (!relation || !isRelation(relation)) {
-  //   return Response.json({ error: 'Relation not found' }, { status: 404 });
-  // }
-
-  // const data = relations[relation].filter((item) => item.userId === id);
-
-  // return jsonResponse(data);
 }) satisfies APIRoute;
-
-export function getStaticPaths() {
-  return [];
-}

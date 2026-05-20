@@ -1,5 +1,10 @@
-import type { SidebarItem } from '../types';
-import { endpoints } from './endpoints';
+import { endpoints } from '@/data/endpoints';
+
+export interface SidebarItem {
+  title: string;
+  id?: string;
+  endpoints?: SidebarItem[];
+}
 
 export const sidebar: SidebarItem[] = endpoints.map((endpoint) => {
   return {
