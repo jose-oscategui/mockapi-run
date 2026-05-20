@@ -1,8 +1,12 @@
 ---
 import Layout from '@/layouts/layout.astro';
 import Documentation from '@/views/docs/index.astro';
+
+const title = 'API Documentation — mockapi.run';
+const description =
+  'Explore mockapi.run API endpoints, sample responses, relations, filters, and resource structure for frontend development and testing.';
 ---
 
-<Layout>
+<Layout title={title} description={description}>
   <Documentation />
 </Layout>

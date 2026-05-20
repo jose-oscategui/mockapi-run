@@ -1,5 +1,6 @@
 {
   "name": "mockapi-run",
+  "description": "Public mock APIs for demos, testing, tutorials and prototypes. Fully open source, deployable anywhere, and optimized for speed.",
   "type": "module",
   "version": "0.0.1",
   "engines": {

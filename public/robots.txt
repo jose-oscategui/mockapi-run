@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Keep raw API payload routes out of search indexing.
+Disallow: /api/
+
+Sitemap: https://mockapi.run/sitemap.xml
