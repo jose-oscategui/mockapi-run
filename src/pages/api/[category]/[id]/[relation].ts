@@ -5,13 +5,22 @@ import { relations } from '@/api/relations';
 
 export const prerender = false;
 
-function hasDirectLookup(config: unknown): config is {
-  collection: Record<string, unknown>[];
-  sourceCollection: Record<string, unknown>[];
+type RelationCollectionItem = Record<string, unknown>;
+
+type DirectLookupRelation = {
+  collection: RelationCollectionItem[];
+  sourceCollection: RelationCollectionItem[];
   sourceKey: string;
   targetKey: string;
   single: true;
-} {
+};
+
+type ForeignKeyRelation = {
+  collection: RelationCollectionItem[];
+  foreignKey: string;
+};
+
+function hasDirectLookup(config: unknown): config is DirectLookupRelation {
   return (
     typeof config === 'object' &&
     config !== null &&
@@ -19,6 +28,15 @@ function hasDirectLookup(config: unknown): config is {
     'sourceKey' in config &&
     'targetKey' in config &&
     'single' in config
+  );
+}
+
+function hasForeignKeyLookup(config: unknown): config is ForeignKeyRelation {
+  return (
+    typeof config === 'object' &&
+    config !== null &&
+    'collection' in config &&
+    'foreignKey' in config
   );
 }
 
@@ -31,13 +49,13 @@ export const GET = (({ params }) => {
     return Response.json({ error: 'Category not found' }, { status: 404 });
   }
 
-  const categoryRelations = relations[category as keyof typeof relations];
+  const categoryRelations = relations[category as keyof typeof relations] as Record<string, unknown>;
 
   if (!categoryRelations || !relation || !(relation in categoryRelations)) {
     return Response.json({ error: 'Relation not found' }, { status: 404 });
   }
 
-  const config = categoryRelations[relation as keyof typeof categoryRelations];
+  const config = categoryRelations[relation];
 
   if (hasDirectLookup(config)) {
     const sourceItem = config.sourceCollection.find((item) => item.id === id);
@@ -55,6 +73,10 @@ export const GET = (({ params }) => {
     }
 
     return jsonResponse(relatedItem);
+  }
+
+  if (!hasForeignKeyLookup(config)) {
+    return Response.json({ error: 'Relation not found' }, { status: 404 });
   }
 
   const data = config.collection.filter((item) => item[config.foreignKey] === id);
