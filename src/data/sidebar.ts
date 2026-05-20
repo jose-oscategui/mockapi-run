@@ -1,4 +1,4 @@
-import { endpoints } from '@/data/endpoints';
+import { endpoints } from '@/data/endpoints/registry';
 
 export interface SidebarItem {
   title: string;

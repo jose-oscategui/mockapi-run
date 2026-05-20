@@ -1,5 +1,5 @@
 ---
-import type { Endpoint } from '@/types/endpoint.type';
+import type { Endpoint } from '@/types/api/endpoint.type';
 
 const { method, path, description, exampleTitle, response, id } = Astro.props as Endpoint;
 const endpointUrl = `/api${path}`;

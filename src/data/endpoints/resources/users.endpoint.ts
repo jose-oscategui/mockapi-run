@@ -1,5 +1,5 @@
-import type { Endpoint } from '@/types/endpoint.type';
-import { createCollectionEndpoints } from '@/data/endpoints/collection.endpoint';
+import type { Endpoint } from '@/types/api/endpoint.type';
+import { createCollectionEndpoints } from '@/data/endpoints/factories/collection-endpoint';
 
 export const usersEndpoint: Endpoint[] = [
   ...createCollectionEndpoints({

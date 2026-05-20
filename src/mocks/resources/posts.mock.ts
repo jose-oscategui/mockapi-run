@@ -1,6 +1,6 @@
-import type { Post } from '@/types/post.type';
+import type { Post } from '@/types/resources/post.type';
 import { Faker, base, en } from '@faker-js/faker';
-import { users } from '@/mocks/users.mock';
+import { users } from '@/mocks/resources/users.mock';
 
 const postFaker = new Faker({
   locale: [en, base],

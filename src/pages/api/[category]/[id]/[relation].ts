@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
-import { isCategory } from '@/libs/guards.lib';
-import { jsonResponse } from '@/libs/json-response.lib';
-import { relations } from '@/libs/relations.lib';
+import { isCategory } from '@/api/guards';
+import { jsonResponse } from '@/api/response';
+import { relations } from '@/api/relations';
 
 export const prerender = false;
 

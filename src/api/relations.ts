@@ -1,7 +1,7 @@
-import { comments } from '@/mocks/comments.mock';
-import { posts } from '@/mocks/posts.mock';
-import { todos } from '@/mocks/todos.mock';
-import { users } from '@/mocks/users.mock';
+import { comments } from '@/mocks/resources/comments.mock';
+import { posts } from '@/mocks/resources/posts.mock';
+import { todos } from '@/mocks/resources/todos.mock';
+import { users } from '@/mocks/resources/users.mock';
 
 export const relations = {
   users: {

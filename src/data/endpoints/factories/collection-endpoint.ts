@@ -1,4 +1,4 @@
-import type { Endpoint } from '@/types/endpoint.type';
+import type { Endpoint } from '@/types/api/endpoint.type';
 
 type EndpointResponse = Endpoint['response'];
 

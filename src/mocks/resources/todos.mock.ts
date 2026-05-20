@@ -1,7 +1,7 @@
-import type { Todo } from '@/types/todo.type';
+import type { Todo } from '@/types/resources/todo.type';
 import { Faker, base, en } from '@faker-js/faker';
-import { comments } from '@/mocks/comments.mock';
-import { users } from '@/mocks/users.mock';
+import { comments } from '@/mocks/resources/comments.mock';
+import { users } from '@/mocks/resources/users.mock';
 
 const todoFaker = new Faker({
   locale: [en, base],

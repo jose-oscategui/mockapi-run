@@ -1,7 +1,7 @@
-import { postsEndpoint } from '@/data/endpoints/posts.endpoint';
-import { todosEndpoint } from '@/data/endpoints/todos.endpoint';
-import { usersEndpoint } from '@/data/endpoints/users.endpoint';
-import { commentsEndpoint } from './comments.endpoint';
+import { commentsEndpoint } from '@/data/endpoints/resources/comments.endpoint';
+import { postsEndpoint } from '@/data/endpoints/resources/posts.endpoint';
+import { todosEndpoint } from '@/data/endpoints/resources/todos.endpoint';
+import { usersEndpoint } from '@/data/endpoints/resources/users.endpoint';
 
 export const endpoints = [
   {

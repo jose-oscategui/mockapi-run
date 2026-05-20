@@ -1,7 +1,7 @@
-import type { Comment } from '@/types/comment.type';
+import type { Comment } from '@/types/resources/comment.type';
 import { Faker, base, en } from '@faker-js/faker';
-import { posts } from '@/mocks/posts.mock';
-import { users } from '@/mocks/users.mock';
+import { posts } from '@/mocks/resources/posts.mock';
+import { users } from '@/mocks/resources/users.mock';
 
 const commentFaker = new Faker({
   locale: [en, base],

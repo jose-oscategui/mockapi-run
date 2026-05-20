@@ -1,4 +1,4 @@
-import type { User } from '@/types/user.type';
+import type { User } from '@/types/resources/user.type';
 import { Faker, base, en } from '@faker-js/faker';
 
 const userFaker = new Faker({
