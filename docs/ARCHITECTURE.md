@@ -2,18 +2,22 @@
 
 This document gives a fast, practical understanding of the `mockapi-run` codebase so contributors can add new API resources without reverse-engineering the whole project.
 
+Use `docs/PRODUCT.md` for product goals and non-goals, and `AGENTS.md` for the contributor workflow and validation checklist.
+
 ## Quick path
 
-1. Read the `src/` structure below.
-2. Follow the resource flow: `types -> mocks -> api -> pages -> docs preview`.
-3. When adding a new resource, update mock data, API registration, relations, and docs preview together.
+1. Read `docs/PRODUCT.md` to understand the product boundaries.
+2. Read the `src/` structure below.
+3. Follow the resource flow: `types -> mocks -> api -> pages -> docs preview`.
+4. When adding a new resource, update mock data, API registration, relations, and docs preview together.
 
 ## 1. Project Structure
 
 ```txt
 mockapi-run/
 ├── docs/
-│   └── ARCHITECTURE.md
+│   ├── ARCHITECTURE.md
+│   └── PRODUCT.md
 ├── public/
 │   ├── robots.txt                   # Crawl policy and sitemap reference
 │   └── seo/                         # Future OG/social/icon assets
@@ -110,7 +114,7 @@ This design keeps route files thin and moves behavior into `src/api` plus resour
 
 ## 5. Data Stores
 
-### 4.1 In-memory mock datasets
+### 5.1 In-memory mock datasets
 
 **Name:** Resource mocks
 
@@ -124,7 +128,7 @@ This design keeps route files thin and moves behavior into `src/api` plus resour
 
 ## 6. External Integrations / APIs
 
-### 5.1 Public image placeholder services
+### 6.1 Public image placeholder services
 
 **Services:** `picsum.photos`, `pravatar.cc`
 
@@ -149,8 +153,10 @@ This design keeps route files thin and moves behavior into `src/api` plus resour
 ## 9. Development & Testing Environment
 
 - **Package manager:** `pnpm`
+- **Current scripts:** `pnpm dev`, `pnpm build`, `pnpm astro`
 - **Primary validation:** `pnpm astro check`
 - **Build verification:** `pnpm build`
+- **Planned scripts:** `# pnpm lint`, `# pnpm test`
 
 ### Local change workflow
 
