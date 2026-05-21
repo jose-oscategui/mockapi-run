@@ -64,13 +64,8 @@ import Sidebar from '@/views/docs/sidebar.astro';
   }
 
   .content {
-    padding: 64px 48px;
     max-width: 800px;
-  }
-  @media (max-width: 640px) {
-    .content {
-      padding: 40px 24px;
-    }
+    padding: 40px 0;
   }
 
   h1 {
@@ -97,5 +92,11 @@ import Sidebar from '@/views/docs/sidebar.astro';
   .section-description,
   .usage-description {
     margin: 1em 0;
+  }
+
+  @media screen and (min-width: 1024px) {
+    .content {
+      padding: 64px 48px;
+    }
   }
 </style>

@@ -25,10 +25,7 @@
       </a>
     </div>
 
-    <div
-      class='animate delay-2'
-      style='max-width: 800px; margin-inline: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;'
-    >
+    <div class='code-show animate delay-2'>
       <div class='code-block' style='text-align: left;'>
         <div class='code-header'>ENDPOINTS</div>
         <div style='margin-bottom: 8px;'><span class='method'>GET</span> /api/users</div>
@@ -52,3 +49,19 @@
     </div>
   </div>
 </section>
+
+<style>
+  .code-show {
+    max-width: 800px;
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  @media screen and (min-width: 768px) {
+    .code-show {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

@@ -40,9 +40,9 @@ const endpointUrl = `/api${path}`;
   .endpoint-header {
     padding: 16px 20px;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    flex-direction: column;
     gap: 12px;
-    border-bottom: 1px solid var(--border);
     font-family: var(--font-mono);
     font-size: 14px;
   }
@@ -56,9 +56,11 @@ const endpointUrl = `/api${path}`;
   }
   .path {
     font-weight: 500;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    word-break: break-word;
   }
   .endpoint-link {
-    margin-left: auto;
     min-width: 24px;
     min-height: 24px;
     display: inline-flex;
@@ -84,11 +86,27 @@ const endpointUrl = `/api${path}`;
   }
 
   .endpoint-body {
-    padding: 20px;
+    display: none;
   }
   .endpoint-desc {
     font-size: 14px;
     color: var(--muted);
     margin-bottom: 16px;
+  }
+
+  @media screen and (min-width: 764px) {
+    .endpoint-header {
+      border-bottom: 1px solid var(--border);
+      flex-direction: row;
+    }
+
+    .endpoint-link {
+      margin-left: auto;
+    }
+
+    .endpoint-body {
+      padding: 20px;
+      display: block;
+    }
   }
 </style>
