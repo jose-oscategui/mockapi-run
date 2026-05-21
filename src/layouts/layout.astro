@@ -25,7 +25,7 @@ const socialImage = Astro.props.image ? new URL(Astro.props.image, Astro.site) :
     <meta charset='UTF-8' />
     <meta name='viewport' content='width=device-width, initial-scale=1' />
     <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
-    <link rel='icon' href='/favicon.ico' />
+    <link rel='icon' href='/favicon.svg' />
     <meta name='generator' content={Astro.generator} />
     <title>{title}</title>
     <meta name='description' content={description} />
@@ -85,9 +85,8 @@ const socialImage = Astro.props.image ? new URL(Astro.props.image, Astro.site) :
 
     --radius: 8px;
     --radius-lg: 12px;
-    --sidebar-width: 260px;
+    --sidebar-width: 200px;
     --header-height: 64px;
-
   }
 
   * {
@@ -129,18 +128,14 @@ const socialImage = Astro.props.image ? new URL(Astro.props.image, Astro.site) :
   }
 
   .logo {
-    font-weight: 700;
-    font-size: 18px;
-    letter-spacing: -0.02em;
     display: flex;
     align-items: center;
-    gap: 8px;
     cursor: pointer;
   }
-  .logo svg {
-    width: 20px;
-    height: 20px;
-    color: var(--accent);
+  .logo img {
+    width: auto;
+    height: 24px;
+    display: block;
   }
 
   /* Type */
@@ -308,5 +303,11 @@ const socialImage = Astro.props.image ? new URL(Astro.props.image, Astro.site) :
   .delay-2 {
     animation-delay: 0.3s;
     opacity: 0;
+  }
+
+  @media screen and (min-width: 1024px) {
+    :root {
+      --sidebar-width: 260px;
+    }
   }
 </style>
