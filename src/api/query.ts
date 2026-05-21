@@ -1,17 +1,25 @@
-export const pickFields = <T extends Record<string, any>>(item: T, fields: string): Partial<T> => {
-  return fields.split(',').reduce((result, field) => {
+type QueryRecord = Record<string, unknown>;
+
+export const pickFields = <T extends object>(item: T, fields: string): Partial<T> => {
+  const record = item as T & QueryRecord;
+
+  return fields.split(',').reduce<Partial<T>>((result, field) => {
     const key = field.trim() as keyof T;
 
-    if (key in item) {
-      result[key] = item[key];
+    if (key in record) {
+      result[key] = record[key] as T[keyof T];
     }
 
     return result;
-  }, {} as Partial<T>);
+  }, {});
 };
 
-export const getNestedValue = (item: Record<string, any>, path: string) => {
-  return path.split('.').reduce((current, key) => {
-    return current?.[key];
+export const getNestedValue = (item: object, path: string): unknown => {
+  return path.split('.').reduce<unknown>((current, key) => {
+    if (typeof current !== 'object' || current === null) {
+      return undefined;
+    }
+
+    return (current as QueryRecord)[key];
   }, item);
 };
