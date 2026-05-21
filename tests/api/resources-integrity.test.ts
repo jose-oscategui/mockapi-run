@@ -38,6 +38,18 @@ function expectNullableForeignKeysToExist<TKey extends string>(
   }
 }
 
+function expectOptionalForeignKeysToExist<TKey extends string>(
+  items: ResourceWithNullableNumericKey<TKey>[],
+  foreignKey: TKey,
+  validIds: Set<number>,
+): void {
+  for (const item of items) {
+    if (item[foreignKey] !== null) {
+      expect(validIds.has(item[foreignKey]), `${foreignKey} should reference an existing record`).toBe(true);
+    }
+  }
+}
+
 describe('mock resource integrity', () => {
   it('keeps every registered collection non-empty with unique ids', () => {
     for (const [collectionName, items] of Object.entries(collections)) {
@@ -51,16 +63,25 @@ describe('mock resource integrity', () => {
   it('keeps foreign-key references aligned with API relations', () => {
     const userIds = new Set(getIds(collections.users));
     const postIds = new Set(getIds(collections.posts));
+    const companyIds = new Set(getIds(collections.companies));
+    const productIds = new Set(getIds(collections.products));
     const todoIds = new Set(getIds(collections.todos));
+
+    expectForeignKeysToExist(relations.companies.products.collection, relations.companies.products.foreignKey, companyIds);
+    expectOptionalForeignKeysToExist(relations.companies.comments.collection, relations.companies.comments.foreignKey, companyIds);
 
     expectForeignKeysToExist(relations.users.posts.collection, relations.users.posts.foreignKey, userIds);
     expectForeignKeysToExist(relations.users.comments.collection, relations.users.comments.foreignKey, userIds);
     expectForeignKeysToExist(relations.users.todos.collection, relations.users.todos.foreignKey, userIds);
 
+    expectForeignKeysToExist(relations.products.company.sourceCollection, relations.products.company.sourceKey, companyIds);
     expectForeignKeysToExist(relations.posts.comments.collection, relations.posts.comments.foreignKey, postIds);
+    expectOptionalForeignKeysToExist(relations.products.comments.collection, relations.products.comments.foreignKey, productIds);
     expectNullableForeignKeysToExist(relations.todos.comments.collection, relations.todos.comments.foreignKey, todoIds);
 
     expectForeignKeysToExist(relations.posts.user.sourceCollection, relations.posts.user.sourceKey, userIds);
+    expectOptionalForeignKeysToExist(relations.comments.company.sourceCollection, relations.comments.company.sourceKey, companyIds);
+    expectOptionalForeignKeysToExist(relations.comments.product.sourceCollection, relations.comments.product.sourceKey, productIds);
     expectForeignKeysToExist(relations.comments.user.sourceCollection, relations.comments.user.sourceKey, userIds);
     expectForeignKeysToExist(relations.comments.post.sourceCollection, relations.comments.post.sourceKey, postIds);
     expectForeignKeysToExist(relations.todos.user.sourceCollection, relations.todos.user.sourceKey, userIds);

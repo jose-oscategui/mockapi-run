@@ -1,6 +1,7 @@
 import type { Comment } from '@/types/resources/comment.type';
 import { Faker, base, en } from '@faker-js/faker';
 import { posts } from '@/mocks/resources/posts.mock';
+import { products } from '@/mocks/resources/products.mock';
 import { users } from '@/mocks/resources/users.mock';
 
 const commentFaker = new Faker({
@@ -39,11 +40,18 @@ const assignedTodoIds = createAssignedIds(
   totalComments,
 );
 
+const assignedProductIds = createAssignedIds(
+  products.map((product) => product.id),
+  totalComments,
+);
+
 function createComment(id: number): Comment {
   const postId = assignedPostIds[id - 1];
   const todoId = assignedTodoIds[id - 1];
+  const productId = assignedProductIds[id - 1];
   const userId = assignedUserIds[id - 1];
   const post = posts.find((item) => item.id === postId)!;
+  const product = products.find((item) => item.id === productId)!;
   const user = users.find((item) => item.id === userId)!;
   const createdAt = commentFaker.date.between({ from: new Date(post.createdAt), to: new Date('2026-05-19T00:00:00.000Z') });
   const updatedAt = commentFaker.date.between({ from: createdAt, to: new Date('2026-05-19T00:00:00.000Z') });
@@ -52,6 +60,8 @@ function createComment(id: number): Comment {
     id,
     postId: post.id,
     todoId,
+    productId: product.id,
+    companyId: product.companyId,
     userId: user.id,
     body: commentFaker.lorem.sentences({ min: 1, max: 3 }),
     status: commentFaker.helpers.arrayElement(commentStatuses),

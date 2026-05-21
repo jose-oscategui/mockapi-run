@@ -2,6 +2,8 @@ export interface Comment {
   id: number
   postId: number
   todoId: number | null
+  productId: number | null
+  companyId: number | null
   userId: number
   body: string
   status: string

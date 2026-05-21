@@ -1,9 +1,17 @@
+import { companiesEndpoint } from '@/data/endpoints/resources/companies.endpoint';
 import { commentsEndpoint } from '@/data/endpoints/resources/comments.endpoint';
 import { postsEndpoint } from '@/data/endpoints/resources/posts.endpoint';
+import { productsEndpoint } from '@/data/endpoints/resources/products.endpoint';
 import { todosEndpoint } from '@/data/endpoints/resources/todos.endpoint';
 import { usersEndpoint } from '@/data/endpoints/resources/users.endpoint';
 
 export const endpoints = [
+  {
+    id: 'companies',
+    title: 'Companies',
+    description: 'Company profiles with related products, comments, locations and hiring stats.',
+    endpoints: companiesEndpoint,
+  },
   {
     id: 'users',
     title: 'Users',
@@ -19,8 +27,14 @@ export const endpoints = [
   {
     id: 'comments',
     title: 'Comments',
-    description: 'Comments related to posts, users or products.',
+    description: 'Comments related to posts, todos, users, products and companies.',
     endpoints: commentsEndpoint,
+  },
+  {
+    id: 'products',
+    title: 'Products',
+    description: 'Catalog products with pricing, inventory, company ownership and comment relations.',
+    endpoints: productsEndpoint,
   },
   {
     id: 'todos',
