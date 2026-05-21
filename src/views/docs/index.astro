@@ -53,15 +53,16 @@ import Sidebar from '@/views/docs/sidebar.astro';
 <style>
   .docs-layout {
     display: grid;
-    grid-template-columns: var(--sidebar-width) 1fr;
+    /* grid-template-columns: var(--sidebar-width) 1fr; */
+    grid-template-columns: 1fr;
     min-height: calc(100vh - var(--header-height));
   }
 
-  @media (max-width: 920px) {
+  /* @media (max-width: 920px) {
     .docs-layout {
       grid-template-columns: 1fr;
     }
-  }
+  } */
 
   .content {
     max-width: 800px;
@@ -92,6 +93,17 @@ import Sidebar from '@/views/docs/sidebar.astro';
   .section-description,
   .usage-description {
     margin: 1em 0;
+  }
+
+  @media screen and (min-width: 768px) {
+    .docs-layout {
+      grid-template-columns: var(--sidebar-width) 1fr;
+    }
+
+    .content {
+      padding: 64px 24px;
+      overflow: auto;
+    }
   }
 
   @media screen and (min-width: 1024px) {
