@@ -1,5 +1,7 @@
 # MockAPI
 
+![Resource relationship diagram](docs/assets/diagram.jpg)
+
 Public mock REST APIs for frontend demos, testing, tutorials, and prototypes. Built with [Astro](https://astro.build) and fully open source.
 
 **Live site:** [https://mockapi.run](https://mockapi.run)
