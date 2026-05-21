@@ -153,10 +153,11 @@ This design keeps route files thin and moves behavior into `src/api` plus resour
 ## 9. Development & Testing Environment
 
 - **Package manager:** `pnpm`
-- **Current scripts:** `pnpm dev`, `pnpm build`, `pnpm astro`
-- **Primary validation:** `pnpm astro check`
+- **Available scripts:** `pnpm dev`, `pnpm preview`, `pnpm test`, `pnpm build`, `pnpm astro`
+- **Test runner:** Vitest via `pnpm test`
+- **Primary structural validation:** `pnpm astro check`
 - **Build verification:** `pnpm build`
-- **Planned scripts:** `# pnpm lint`, `# pnpm test`
+- **Planned script:** `# pnpm lint`
 
 ### Local change workflow
 
@@ -165,7 +166,7 @@ This design keeps route files thin and moves behavior into `src/api` plus resour
 3. Update API runtime registration in `src/api`.
 4. Update docs preview in `src/data/endpoints/resources` and registry if needed.
 5. If crawlable pages changed, update `public/robots.txt` or `src/pages/sitemap.xml.ts`.
-6. Run validation.
+6. Run `pnpm test`, `pnpm astro check`, and `pnpm build`.
 
 ## 10. Resource Extension Pattern
 
